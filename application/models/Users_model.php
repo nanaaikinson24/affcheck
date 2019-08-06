@@ -1,0 +1,41 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Users_model extends CI_Model 
+{
+	public function getUserEmail($email)
+	{
+		return $this->db->where("email", $email)->get("users")->row();
+	}
+
+	public function show($id)
+	{
+		return $this->db->where("id", $id)->get("users")->row();
+	}
+
+	public function showMask($id)
+	{
+		return $this->db->where("mask_id", $id)->get("users")->row();
+	}
+
+	public function getUsers()
+	{
+		return $this->db->get('users')->result();
+	}
+
+	public function store($data)
+	{
+		$this->db->insert('users', $data);
+		return $this->db->insert_id();
+	}
+
+	public function updateMask($data, $id)
+	{
+		return $this->db
+			->where('mask_id', $id)
+			->update('users', $data);
+	}
+}
+
+/* End of file Users_model.php */
+/* Location: ./application/models/Users_model.php */
