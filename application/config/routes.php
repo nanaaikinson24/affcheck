@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -51,20 +51,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['dashboard']['get'] = 'dashboard/index';
+$route['profile']['get'] = 'profile/index';
 $route['aff-check']['get'] = 'dashboard/check';
 
 $route['users']['get'] = 'users/index';
+$route['forgot-password']['get'] = 'auth/forgotPassword';
 $route['logout'] = 'auth/logout';
 
 /*
  * Apis
  */
 $route['api/login']['post'] = 'auth/login';
+$route['api/reset-password']['post'] = 'auth/resetPassword';
 $route['api/aff-check']['post'] = 'affcheck/search';
 $route['api/users']['get'] = 'users/get';
 $route['api/users']['post'] = 'users/store';
 $route['api/users/(:any)']['get'] = 'users/show/$1';
 $route['api/users/(:any)']['post'] = 'users/update/$1';
+$route['api/profile/update-password']['post'] = 'profile/updatePassword';
+$route['api/profile/update-details']['post'] = 'profile/updateData';
 
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';

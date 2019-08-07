@@ -4,8 +4,13 @@ require("./bootstrap");
 const uriSegment = window.location.pathname.split("/");
 
 if (uriSegment[1] === "aff-check") {
-	require("./affcheck");
+  require("./affcheck");
 }
+
 if (uriSegment[1] === "users") {
-	require("./users");
+  require("./users");
+}
+
+if (uriSegment[1] === "profile") {
+  require("./profile");
 }

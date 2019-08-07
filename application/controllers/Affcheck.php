@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-define('CURL_URL','https://gogpayslip.com/coderest/getpeopleinfo.php');
-define('IMG_URL','https://127.0.0.1/gogpayslip/media/uploaded/updatedprofile/');
+defined('BASEPATH') or exit('No direct script access allowed');
+define('CURL_URL', 'https://gogpayslip.com/coderest/getpeopleinfo.php');
+define('IMG_URL', 'https://127.0.0.1/gogpayslip/media/uploaded/updatedprofile/');
 
 class Affcheck extends CI_Controller
 {
@@ -10,11 +10,15 @@ class Affcheck extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('data_model');
+		$this->load->library('session');
 		$this->secretKey = '#!092737@%&8**#BigBadyBoy@@@><';
 	}
 
 	public function search()
 	{
+		$User = $this->session->userdata('user');
+
 		$this->form_validation->set_rules('search', 'search', 'trim|required|numeric|min_length[3]');
 		if ($this->form_validation->run() === FALSE) {
 			$errors = array();
@@ -24,17 +28,24 @@ class Affcheck extends CI_Controller
 
 			$response = array('status' => 400, 'errors' => array_filter($errors));
 			exit(json_encode($response));
-		}
-		else {
+		} else {
 			$query = $this->input->post('search');
 
 			$response = $this->getPeopleInfo($query);
-			echo json_encode($response);
+			$result = json_encode($response);
+
+			$insert = $this->data_model->storeSearch([
+				'search_by' => $User->id,
+				'query' => $query,
+				'result' => $result
+			]);
+
+			echo $result;
 		}
 	}
 
-	public function getPeopleInfo($employeeNumber){
-
+	public function getPeopleInfo($employeeNumber)
+	{
 		$params = array(
 			'employeenumber' => serialize($employeeNumber),
 			'Secure_key' => $this->secretKey
@@ -52,18 +63,17 @@ class Affcheck extends CI_Controller
 			CURLOPT_POSTFIELDS => $params,
 		);
 
-		if(!isset($adb_handle)) $adb_handle = curl_init();
+		if (!isset($adb_handle)) $adb_handle = curl_init();
 
-		curl_setopt_array($adb_handle,($options + $adb_option_defaults));
+		curl_setopt_array($adb_handle, ($options + $adb_option_defaults));
 
 		$output = curl_exec($adb_handle);
-		if($output != false){
-			$response =  json_decode($output,true);
+		if ($output != false) {
+			$response =  json_decode($output, true);
 
 			curl_close($adb_handle);
 			return $response;
-		}
-		else{
+		} else {
 			$response = 'Curl error: ' . curl_error($adb_handle);
 		}
 

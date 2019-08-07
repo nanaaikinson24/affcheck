@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 	<h1 class="h3 mb-4 text-gray-800">Users</h1>
 
 	<div class="row py-5">
@@ -6,11 +6,7 @@
 			<div class="card" style="border-radius: 0;">
 				<div class="card-body">
 					<div class="mb-4">
-						<button class="btn btn-primary"
-							data-toggle="modal"
-						  	data-target="#dataModal"
-						  	data-backdrop="static"
-						>
+						<button class="btn btn-primary" data-toggle="modal" data-target="#dataModal" data-backdrop="static">
 							New User
 						</button>
 					</div>
@@ -29,23 +25,19 @@
 							</thead>
 
 							<tbody>
-								<?php foreach ($users as $user): ?>
+								<?php foreach ($users as $user) : ?>
 									<tr id="row-<?= $user->mask_id; ?>">
 										<td></td>
-										<td><?= $user->first_name . ' '. $user->last_name; ?></td>
+										<td><?= $user->first_name . ' ' . $user->last_name; ?></td>
 										<td><?= $user->email; ?></td>
 										<td class="text-capitalize"><?= $user->role; ?></td>
 										<td class="text-capitalize"><?= $user->status; ?></td>
 										<td>
-											<button class="btn btn-sm btn-primary edit-user"
-												data-id="<?= $user->mask_id; ?>"
-											>
+											<button class="btn btn-sm btn-primary edit-user" data-id="<?= $user->mask_id; ?>">
 												<i class="fas fa-edit"></i>
 											</button>
 
-											<button class="btn btn-sm btn-danger delete-user"
-											  	data-id="<?= $user->mask_id; ?>"
-											>
+											<button class="btn btn-sm btn-danger delete-user" data-id="<?= $user->mask_id; ?>">
 												<i class="fas fa-trash"></i>
 											</button>
 										</td>

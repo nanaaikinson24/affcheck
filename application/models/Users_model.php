@@ -1,7 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Users_model extends CI_Model 
+class Users_model extends CI_Model
 {
 	public function getUserEmail($email)
 	{
@@ -34,6 +34,11 @@ class Users_model extends CI_Model
 		return $this->db
 			->where('mask_id', $id)
 			->update('users', $data);
+	}
+
+	public function countAll()
+	{
+		return $this->db->count_all('users');
 	}
 }
 

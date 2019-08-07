@@ -3,39 +3,48 @@
 @import "~sweetalert2/dist/sweetalert2.min.css";
 
 .auth-main-content {
-	padding-top: 70px;
+  padding-top: 70px;
 }
 
 .logo {
-	height: 90px;
-	text-align: center;
-	margin-bottom: 15px;
+  height: 90px;
+  text-align: center;
+  margin-bottom: 15px;
 
-	img {
-		max-height: 100%;
-		max-width: 100%;
-		object-fit: contain;
-	}
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
 }
 
 .form-control {
-	border-radius: 0px;
+  border-radius: 0px;
 }
 
 .bg-gradient-primary {
-	background-color: #7f2499;
-	background-image: linear-gradient(180deg, #7b1fa2 10%, #7f2499 100%);
-	background-size: cover;
+  background-color: #7f2499;
+  background-image: linear-gradient(180deg, #7b1fa2 10%, #7f2499 100%);
+  background-size: cover;
 }
 
 .aff-search {
-	.btn-primary {
-		background-color: #7f2499;
-		border-color: #7f2499;
+  .btn-primary {
+    background-color: #7f2499;
+    border-color: #7f2499;
 
-		&:hover {
-			background-color: #521d6c;
-			border-color: #521d6c;
-		}
-	}
+    &:hover {
+      background-color: #521d6c;
+      border-color: #521d6c;
+    }
+  }
+}
+
+.profile-img {
+  height: 150px;
+  width: 150px;
+  border: 1px solid #eee;
+
+  &:hover {
+  }
 }

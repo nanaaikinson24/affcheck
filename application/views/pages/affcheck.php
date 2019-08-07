@@ -1,11 +1,11 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800">AFF Check</h1>
 
 	<div class="my-5">
 		<div class="row">
-			<div class="col-md-5 offset-md-1">
+			<div class="col-md-6">
 				<form class="aff-search" id="affCheckForm">
 					<div class="input-group mb-3">
 						<input type="text" name="search" id="search" class="form-control" placeholder="Staff ID" required>
@@ -20,21 +20,14 @@
 		</div>
 
 		<div class="row py-5">
-			<div class="col-md-10 offset-md-1">
+			<div class="col-md-10">
 				<div class="border-top pt-5">
 					<div class="success-data" style="display: none;">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="d-block">Current Affordability</label>
-									<input
-										type="text"
-										name="currentAffordability"
-										id="currentAffordability"
-										class="form-control"
-										style="border: 1px solid rgba(82, 29, 108, 0.8); background-color: rgba(82, 29, 108, 0.8);color: #fff;"
-										disabled
-									>
+									<input type="text" name="currentAffordability" id="currentAffordability" class="form-control" style="border: 1px solid rgba(82, 29, 108, 0.8); background-color: rgba(82, 29, 108, 0.8);color: #fff;" disabled>
 								</div>
 
 								<div class="form-group">
@@ -127,4 +120,3 @@
 
 </div>
 <!-- /.container-fluid -->
-

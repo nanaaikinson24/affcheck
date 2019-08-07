@@ -1,26 +1,30 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
-
+class Auth extends CI_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model("users_model");
+		$this->load->library('session');
 	}
 
 	public function index()
 	{
-		$this->load->library('session');
 		$this->load->view('pages/login');
+	}
+
+	public function forgotPassword()
+	{
+		$this->load->view('pages/forgot');
 	}
 
 	public function login()
 	{
-		//Session library
-		$this->load->library('session');
-
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('password', 'password', 'trim|required');
+
 		if ($this->form_validation->run() === FALSE) {
 			$errors = array();
 			foreach ($this->input->post() as $key => $value) {
@@ -29,13 +33,12 @@ class Auth extends CI_Controller {
 
 			$response = array('status' => 400, 'errors' => array_filter($errors));
 			exit(json_encode($response));
-		}
-		else {
+		} else {
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
 			// User
-			$user = $this->users_model->getUserEmail((string)$email);
+			$user = $this->users_model->getUserEmail((string) $email);
 
 			if ($user) {
 				if (password_verify($password, $user->password)) {
@@ -50,22 +53,18 @@ class Auth extends CI_Controller {
 							'link' => $link,
 							'message' => 'Authentication successful. Redirecting...'
 						);
-					}
-					else {
+					} else {
 						$response = array(
 							'status' => 401,
 							'message' => 'Your account is inactive. Kindly contact your administrator concerning your account'
 						);
 					}
-				}
-				else {
+				} else {
 					$response = array('status' => 401, 'message' => 'Incorrect email or password');
 				}
-			}
-			else {
+			} else {
 				$response = array('status' => 401, 'message' => 'Incorrect email or password');
 			}
-
 			echo json_encode($response);
 		}
 	}
@@ -79,6 +78,51 @@ class Auth extends CI_Controller {
 		redirect('/');
 	}
 
+	public function resetPassword()
+	{
+		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
+
+		if ($this->form_validation->run() === FALSE) {
+			$errors = array();
+			foreach ($this->input->post() as $key => $value) {
+				$errors[$key] = form_error($key, '<span class="text-danger d-block s-v-e">', '</span>');
+			}
+
+			$response = array('status' => 400, 'errors' => array_filter($errors));
+			exit(json_encode($response));
+		} else {
+			$email = $this->input->post('email');
+
+			// User
+			$user = $this->users_model->getUserEmail((string) $email);
+			if ($user) {
+				$password = rand(11111111, 99999999);
+				$hashed = password_hash($password, PASSWORD_DEFAULT);
+
+				$data = array('password' => $hashed);
+				$update = $this->users_model->updateMask($data, $user->mask_id);
+
+				if ($update) {
+					$data['password'] = $password;
+					$data['first_name'] = $user->first_name;
+					$data['last_name'] = $user->last_name;
+
+					$userData = $data;
+					$mail_results = $this->mailer
+						->to($email)
+						->subject("Amazing Market Consult: Password Reset")
+						->send("forgot_password.php", compact('userData'));
+
+					$response = array('status' => 200, 'message' => 'Password reset request sent successfully. An email has been sent to the email you entered for further instructions');
+				} else {
+					$response = array('status' => 401, 'message' => 'There was an error in resetting your password');
+				}
+			} else {
+				$response = array('status' => 401, 'message' => 'This email is not associated with any account');
+			}
+			echo json_encode($response);
+		}
+	}
 }
 
 /* End of file Auth.php */
