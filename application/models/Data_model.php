@@ -5,14 +5,12 @@ class Data_model extends CI_Model
 {
   public function storeSearch($data)
   {
-    $this->db->cache_on();
     $this->db->insert('searches', $data);
     return $this->db->insert_id();
   }
 
   public function searchCount()
   {
-    $this->db->cache_on();
     return $this->db->count_all('searches');
   }
 
@@ -25,7 +23,6 @@ class Data_model extends CI_Model
 
   public function mostOccurredSearch()
   {
-    $this->db->cache_on();
     $sql = 'SELECT `query` AS staff_id FROM	searches GROUP BY	id ORDER BY	COUNT( * ) DESC';
     $query = $this->db->query($sql);
     return $query->row();
