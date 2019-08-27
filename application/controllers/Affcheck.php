@@ -12,6 +12,7 @@ class Affcheck extends CI_Controller
 		parent::__construct();
 		$this->load->model('data_model');
 		$this->load->library('session');
+		$this->load->helper('custom');
 		$this->secretKey = '#!092737@%&8**#BigBadyBoy@@@><';
 	}
 
@@ -30,14 +31,17 @@ class Affcheck extends CI_Controller
 			exit(json_encode($response));
 		} else {
 			$query = $this->input->post('search');
-
+			$location = $this->input->post('location') ? $this->input->post('location') : '';
 			$response = $this->getPeopleInfo($query);
 			$result = json_encode($response);
 
 			$insert = $this->data_model->storeSearch([
 				'search_by' => $User->id,
 				'query' => $query,
-				'result' => $result
+				'result' => $result,
+				'device' => $this->input->post('device'),
+				'location' => $location,
+				'ip' => get_client_ip()
 			]);
 
 			echo $result;

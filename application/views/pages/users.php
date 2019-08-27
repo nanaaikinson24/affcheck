@@ -11,7 +11,7 @@
 						</button>
 					</div>
 
-					<div>
+					<div class="table-responsive">
 						<table class="table table-bordered" id="dataTable">
 							<thead>
 								<tr>
@@ -26,22 +26,22 @@
 
 							<tbody>
 								<?php foreach ($users as $user) : ?>
-									<tr id="row-<?= $user->mask_id; ?>">
-										<td></td>
-										<td><?= $user->first_name . ' ' . $user->last_name; ?></td>
-										<td><?= $user->email; ?></td>
-										<td class="text-capitalize"><?= $user->role; ?></td>
-										<td class="text-capitalize"><?= $user->status; ?></td>
-										<td>
-											<button class="btn btn-sm btn-primary edit-user" data-id="<?= $user->mask_id; ?>">
-												<i class="fas fa-edit"></i>
-											</button>
+								<tr id="row-<?= $user->mask_id; ?>">
+									<td></td>
+									<td><?= $user->first_name . ' ' . $user->last_name; ?></td>
+									<td><?= $user->email; ?></td>
+									<td class="text-capitalize"><?= $user->role; ?></td>
+									<td class="text-capitalize"><?= $user->status; ?></td>
+									<td>
+										<button class="btn btn-sm btn-primary edit-user" data-id="<?= $user->mask_id; ?>">
+											<i class="fas fa-edit"></i>
+										</button>
 
-											<button class="btn btn-sm btn-danger delete-user" data-id="<?= $user->mask_id; ?>">
-												<i class="fas fa-trash"></i>
-											</button>
-										</td>
-									</tr>
+										<button class="btn btn-sm btn-danger delete-user" data-id="<?= $user->mask_id; ?>">
+											<i class="fas fa-trash"></i>
+										</button>
+									</td>
+								</tr>
 								<?php endforeach; ?>
 							</tbody>
 						</table>

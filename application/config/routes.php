@@ -53,6 +53,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['dashboard']['get'] = 'dashboard/index';
 $route['profile']['get'] = 'profile/index';
 $route['aff-check']['get'] = 'dashboard/check';
+$route['search-results']['get'] = 'search/index';
 
 $route['users']['get'] = 'users/index';
 $route['forgot-password']['get'] = 'auth/forgotPassword';
@@ -70,6 +71,8 @@ $route['api/users/(:any)']['get'] = 'users/show/$1';
 $route['api/users/(:any)']['post'] = 'users/update/$1';
 $route['api/profile/update-password']['post'] = 'profile/updatePassword';
 $route['api/profile/update-details']['post'] = 'profile/updateData';
+
+$route['api/search-results']['get'] = 'search/serachResults';
 
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';

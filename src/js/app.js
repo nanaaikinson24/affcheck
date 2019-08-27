@@ -14,3 +14,7 @@ if (uriSegment[1] === "users") {
 if (uriSegment[1] === "profile") {
   require("./profile");
 }
+
+if (uriSegment[1] === "search-results") {
+  require("./search");
+}

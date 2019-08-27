@@ -43,7 +43,10 @@ class Auth extends CI_Controller
 			if ($user) {
 				if (password_verify($password, $user->password)) {
 					if ($user->status === 'active') {
-						$link = base_url('/dashboard');
+						$link = base_url('dashboard');
+
+						// Log user activity
+						// TODO: time of login, 
 
 						$this->session->set_userdata('user', $user);
 						$this->session->set_userdata('logged_in', true);

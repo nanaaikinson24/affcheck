@@ -10,13 +10,13 @@
 	<hr class="sidebar-divider my-0">
 
 	<!-- Nav Item - Dashboard -->
-	<?php if ( $user->role == 'admin'): ?>
-		<li class="nav-item">
-			<a class="nav-link" href="<?= base_url('dashboard') ?>">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span>
-			</a>
-		</li>
+	<?php if ($user->role == 'admin') : ?>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('dashboard') ?>">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Dashboard</span>
+		</a>
+	</li>
 	<?php endif; ?>
 
 	<li class="nav-item">
@@ -26,13 +26,20 @@
 		</a>
 	</li>
 
-	<?php if ( $user->role == 'admin'): ?>
-		<li class="nav-item">
-			<a class="nav-link" href="<?= base_url('users'); ?>">
-				<i class="fas fa-fw fa-users"></i>
-				<span>Users</span>
-			</a>
-		</li>
+	<?php if ($user->role == 'admin') : ?>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('users'); ?>">
+			<i class="fas fa-fw fa-users"></i>
+			<span>Users</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url('search-results'); ?>">
+			<i class="fas fa-fw fa-search"></i>
+			<span>Search Results</span>
+		</a>
+	</li>
 	<?php endif; ?>
 
 	<!-- Divider -->
