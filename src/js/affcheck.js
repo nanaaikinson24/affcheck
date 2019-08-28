@@ -14,7 +14,6 @@ $(function() {
   } else {
     
   } */
-  tryAPIGeolocation();
 
   affCheckForm.submit(function(e) {
     e.preventDefault();

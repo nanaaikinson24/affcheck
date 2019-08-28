@@ -36,6 +36,7 @@ class Affcheck extends CI_Controller
 				$response = $this->getPeopleInfo($query);
 				$result = json_encode($response);
 
+				// Other
 				$insert = $this->data_model->storeSearch([
 					'search_by' => $User->id,
 					'query' => $query,
