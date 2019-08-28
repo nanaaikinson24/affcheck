@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "current-device": "^0.8.2",
     "datatables": "^1.10.18",
     "jquery": "^3.4.1",
     "jquery-validation": "^1.19.1",

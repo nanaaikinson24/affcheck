@@ -11,40 +11,44 @@ class Affcheck extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('data_model');
-		$this->load->library('session');
 		$this->load->helper('custom');
 		$this->secretKey = '#!092737@%&8**#BigBadyBoy@@@><';
 	}
 
 	public function search()
 	{
+		$this->load->library('session');
 		$User = $this->session->userdata('user');
 
-		$this->form_validation->set_rules('search', 'search', 'trim|required|numeric|min_length[3]');
-		if ($this->form_validation->run() === FALSE) {
-			$errors = array();
-			foreach ($this->input->post() as $key => $value) {
-				$errors[$key] = form_error($key, '<span class="text-danger d-block s-v-e">', '</span>');
+		if ($User) {
+			$this->form_validation->set_rules('search', 'search', 'trim|required|numeric|min_length[3]');
+			if ($this->form_validation->run() === FALSE) {
+				$errors = array();
+				foreach ($this->input->post() as $key => $value) {
+					$errors[$key] = form_error($key, '<span class="text-danger d-block s-v-e">', '</span>');
+				}
+
+				$response = array('status' => 400, 'errors' => array_filter($errors));
+				exit(json_encode($response));
+			} else {
+				$query = $this->input->post('search');
+				$location = $this->input->post('location') ? $this->input->post('location') : '';
+				$response = $this->getPeopleInfo($query);
+				$result = json_encode($response);
+
+				$insert = $this->data_model->storeSearch([
+					'search_by' => $User->id,
+					'query' => $query,
+					'result' => $result,
+					'device' => $this->input->post('device'),
+					'location' => $location,
+					'ip' => get_client_ip()
+				]);
+
+				echo $result;
 			}
-
-			$response = array('status' => 400, 'errors' => array_filter($errors));
-			exit(json_encode($response));
 		} else {
-			$query = $this->input->post('search');
-			$location = $this->input->post('location') ? $this->input->post('location') : '';
-			$response = $this->getPeopleInfo($query);
-			$result = json_encode($response);
-
-			$insert = $this->data_model->storeSearch([
-				'search_by' => $User->id,
-				'query' => $query,
-				'result' => $result,
-				'device' => $this->input->post('device'),
-				'location' => $location,
-				'ip' => get_client_ip()
-			]);
-
-			echo $result;
+			echo json_encode(['status' => 201, 'msg' => 'You are not authorized to use this']);
 		}
 	}
 

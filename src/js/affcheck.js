@@ -1,22 +1,29 @@
 import Axios from "axios";
+import device from "current-device";
 
 $(function() {
   const coordinates = { latitude: "", longitude: "" };
   const affCheckForm = $("#affCheckForm");
   const affCheckFormBtn = $("#affCheckFormBtn");
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    coordinates.latitude = position.coords.latitude;
-    coordinates.longitude = position.coords.longitude;
-  });
+  /* if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      coordinates.latitude = position.coords.latitude;
+      coordinates.longitude = position.coords.longitude;
+    });
+  } else {
+    
+  } */
+  tryAPIGeolocation();
 
   affCheckForm.submit(function(e) {
     e.preventDefault();
     $(".s-v-e").remove();
 
     const formData = new FormData();
+    const device = getPlatformType();
     formData.append("search", $("#search").val());
-    formData.append("device", getPlatformType());
+    formData.append("device", device);
     formData.append("longitude", coordinates.longitude);
     formData.append("latitude", coordinates.latitude);
 
@@ -36,13 +43,7 @@ $(function() {
 });
 
 function getPlatformType() {
-  if (navigator.userAgent.match(/mobile/i)) {
-    return "Mobile";
-  } else if (navigator.userAgent.match(/iPad|Android|Touch/i)) {
-    return "Tablet";
-  } else {
-    return "Desktop/Laptop";
-  }
+  return device.type;
 }
 
 async function getLocation(lat, lon) {
@@ -100,4 +101,18 @@ function getResults(formData, affCheckFormBtn) {
       }
     })
     .catch(err => console.log(err));
+}
+
+function tryAPIGeolocation() {
+  jQuery
+    .post(
+      "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCaZWEPwS3cHXIDrXtCNRA6YE6TfgFjIys",
+      function(success) {
+        coordinates.latitude = success.location.lat;
+        coordinates.longitude = success.location.lng;
+      }
+    )
+    .fail(function(err) {
+      alert("API Geolocation error! \n\n" + err);
+    });
 }

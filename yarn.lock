@@ -2096,6 +2096,11 @@ csso@^3.5.1:
   dependencies:
     css-tree "1.0.0-alpha.29"
 
+current-device@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/current-device/-/current-device-0.8.2.tgz#6551a1e7f92e87c3ff7274a71978e96f8dd55f23"
+  integrity sha512-DB/lozoIa5jZpyNQq7C6zlWNJ00V/qKeYhXRyI1sckTmlQhS9sfeflK72Tsx7HyUYmDLywb3lhfzrHt/9Tx7Gg==
+
 cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
