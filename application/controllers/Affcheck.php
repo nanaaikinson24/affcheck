@@ -3,6 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 define('CURL_URL', 'https://gogpayslip.com/coderest/getpeopleinfo.php');
 define('IMG_URL', 'https://127.0.0.1/gogpayslip/media/uploaded/updatedprofile/');
 
+require_once(realpath(FCPATH . 'includes/Mobile_Detect.php'));
+
 class Affcheck extends CI_Controller
 {
 	protected $secretKey;
@@ -37,11 +39,24 @@ class Affcheck extends CI_Controller
 				$result = json_encode($response);
 
 				// Other
+				$device = "";
+				$detect = new Mobile_Detect;
+
+				if ($detect->isTablet()) {
+					// Any tablet device.
+					$device = "Tablet";
+				} elseif ($detect->isMobile() && !$detect->isTablet()) {
+					// Exclude tablets.
+					$device = "Mobile";
+				} else {
+					$device = "Desktop / Laptop";
+				}
+
 				$insert = $this->data_model->storeSearch([
 					'search_by' => $User->id,
 					'query' => $query,
 					'result' => $result,
-					'device' => $this->input->post('device'),
+					'device' => $device,
 					'location' => $location,
 					'ip' => get_client_ip()
 				]);
