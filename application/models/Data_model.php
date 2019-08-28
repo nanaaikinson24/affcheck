@@ -30,7 +30,7 @@ class Data_model extends CI_Model
 
   public function searchResults()
   {
-    $sql = "SELECT s.*, CONCAT(u.first_name, ' ', u.last_name) as user FROM searches as s LEFT JOIN users as u ON s.search_by = u.id";
+    $sql = "SELECT s.*, CONCAT(u.first_name, ' ', u.last_name) as user FROM searches as s LEFT JOIN users as u ON s.search_by = u.id ORDER BY s.id DESC";
     $query = $this->db->query($sql);
     return $query->result();
   }

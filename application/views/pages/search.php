@@ -26,7 +26,7 @@
                   <td><?= $result->id; ?></td>
                   <td><?= $result->query; ?></td>
                   <td><?= $result->user; ?></td>
-                  <td><?= gmdate('M d, Y', strtotime($result->created_at)) . ' ' . gmdate('h:i A', strtotime($result->created_at)); ?></td>
+                  <td><?= gmdate('M d, Y', strtotime($result->created_at)) . ' --- ' . gmdate('h:i A', strtotime($result->created_at)); ?></td>
                   <td><?= $result->device; ?></td>
                   <td width="20%"><?= $result->location; ?></td>
 
